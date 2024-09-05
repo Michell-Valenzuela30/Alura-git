@@ -200,6 +200,7 @@
     .encriptado img {
         top: 0;
         display: none;
+        visibility: hidden;
         
     }
     
