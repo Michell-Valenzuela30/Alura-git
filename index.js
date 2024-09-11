@@ -2,7 +2,7 @@ function encriptar() {
     let texto = document.getElementById("texto").value;
     let tituloMensaje = document.getElementById("titulo-mensaje");
     let parrafo = document.getElementById("parrafo");
-    let muñeco = document.getElementById("muñeco");
+    let muñeco = document.getElementById("Muñeco");
     
     let textoCifrado = texto
     .replace(/a/gi, "enter")
