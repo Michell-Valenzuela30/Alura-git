@@ -1,8 +1,8 @@
 function encriptar() {
-    let texto = document.getElementById("texto").value;
-    let tituloMensaje = document.getElementById("titulo-mensaje");
-    let parrafo = document.getElementById("parrafo");
-    let muñeco = document.getElementById("Muñeco");
+    var texto = document.getElementById("texto").value;
+    var tituloMensaje = document.getElementById("titulo-mensaje");
+    var parrafo = document.getElementById("parrafo");
+    var muñeco = document.getElementById("Muñeco");
     
     let textoCifrado = texto
     .replace(/a/gi, "enter")
@@ -17,7 +17,7 @@ function encriptar() {
     i. (insensitive) indica que la búsqueda no distingue entre mayúsculas y minúsculas.
     */ 
    if(texto.length!=0){
-        document.getElementById("texto") = textoCifrado;
+        document.getElementById("texto").value = textoCifrado;
         tituloMensaje.textContent = "Texto encriptado con éxito";
         parrafo.textContent = "";
         muñeco.src = "./img/encriptado.jpg";
@@ -34,27 +34,27 @@ function encriptar() {
 }
 function desencriptar(){
     //define nuevamente las variables, ya que se trata de bloques de funciones diferentes
-    let texto = document.getElementById("texto").value;
-    let tituloMensaje = document.getElementById("titulo-mensaje");
-    let parrafo = document.getElementById("parrafo");
-    let muñeco = document.getElementById("muñeco");
+    var texto = document.getElementById("texto").value;
+    var tituloMensaje = document.getElementById("titulo-mensaje");
+    var parrafo = document.getElementById("parrafo");
+    var muñeco = document.getElementById("muñeco");
     
-    let textoCifrado = texto
+    var textoCifrado = texto
     
     .replace(/enter/gi, "a")
-        .replace(/imes/gi, "e")
-        .replace(/ai/gi, "i")
-        .replace(/ober/gi, "o")
-        .replace(/ufat/gi, "u");
-        
-        //Ahora aplica la Psicologìa inversa jj
-        
-        if(texto.length!=0){
-        document.getElementById("texto") = textoCifrado;
-        tituloMensaje.textContent = "Texto encriptado con éxito";
-        parrafo.textContent = "";
-        muñeco.src = "./img/encriptado.jpg";
-        
+    .replace(/imes/gi, "e")
+    .replace(/ai/gi, "i")
+    .replace(/ober/gi, "o")
+    .replace(/ufat/gi, "u");
+    
+    //Ahora aplica la Psicologìa inversa jj
+    
+    if(texto.length!=0){
+    document.getElementById("texto").value = textoCifrado;
+    tituloMensaje.textContent = "Texto encriptado con éxito";
+    parrafo.textContent = "";
+    muñeco.src = "./img/encriptado.jpg";
+    
     } else{
         muñeco.src = "./img/muñeco.png";
         tituloMensaje.textContent = "Ningún mensaje fue encontrado";
