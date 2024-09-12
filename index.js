@@ -1,75 +1,92 @@
-function encriptar() {
-    var texto = document.getElementById("texto").value;
-    var tituloMensaje = document.getElementById("titulo-mensaje");
-    var parrafo = document.getElementById("parrafo");
-    var muñeco = document.getElementById("Muñeco");
-    
-    let textoCifrado = texto
-    .replace(/a/gi, "enter")
-    .replace(/e/gi, "imes")
-    .replace(/i/gi, "ai")
-    .replace(/o/gi, "ober")
-    .replace(/u/gi, "ufat");
-    
-    /*El método replace se usa para reemplazar todas las ocurrencias de la letra “a” (sin importar si es mayúscula o minúscula) por la cadena “enter”. La expresión regular /a/gi se desglosa así:
-    /a/. busca la letra “a”.
-    g. (global) indica que debe buscar todas las ocurrencias en el texto.
-    i. (insensitive) indica que la búsqueda no distingue entre mayúsculas y minúsculas.
-    */ 
-   if(texto.length!=0){
-        document.getElementById("texto").value = textoCifrado;
-        tituloMensaje.textContent = "Texto encriptado con éxito";
-        parrafo.textContent = "";
-        muñeco.src = "./img/encriptado.jpg";
+function actualizarUI(titulo, parrafoTexto, imagenSrc) {
+  const tituloMensaje = document.getElementById("titulo-mensaje");
+  const parrafo = document.getElementById("parrafo");
+  const muñeco = document.getElementById("Muñeco");
 
-    } else{
-        muñeco.src = "./img/muñeco.png";
-        tituloMensaje.textContent = "Ningún mensaje fue encontrado";
-        parrafo.textContent = "Ingresa el texto que deseas encriptar o  desencriptar";
-        swal("Ooops","Debes ingresar algún texto","Warning");
-        
-        //swal es la abreviacion de SweetAlert 
-        /*alert("Debes ingresar algún texto");*/
-    }
+  tituloMensaje.textContent = titulo;
+  parrafo.textContent = parrafoTexto;
+  muñeco.src = imagenSrc;
 }
-function desencriptar(){
-    //define nuevamente las variables, ya que se trata de bloques de funciones diferentes
-    var texto = document.getElementById("texto").value;
-    var tituloMensaje = document.getElementById("titulo-mensaje");
-    var parrafo = document.getElementById("parrafo");
-    var muñeco = document.getElementById("muñeco");
-    
-    var textoCifrado = texto
-    
-    .replace(/enter/gi, "a")
-    .replace(/imes/gi, "e")
-    .replace(/ai/gi, "i")
-    .replace(/ober/gi, "o")
-    .replace(/ufat/gi, "u");
-    
-    //Ahora aplica la Psicologìa inversa jj
-    
-    if(texto.length!=0){
+
+function encriptar() {
+  const texto = document.getElementById("texto").value.toLowerCase(); // Convierte a minúsculas
+  if (/[^a-z\s]/.test(texto)) {
+    // Valida si hay caracteres especiales
+    Swal.fire(
+      "Error",
+      "Solo se permiten letras minúsculas y sin acentos",
+      "error"
+    );
+    return;
+  }
+
+  if (texto.length !== 0) {
+    const textoCifrado = texto
+      .replace(/e/g, "enter")
+      .replace(/i/g, "imes")
+      .replace(/a/g, "ai")
+      .replace(/o/g, "ober")
+      .replace(/u/g, "ufat");
+
     document.getElementById("texto").value = textoCifrado;
-    tituloMensaje.textContent = "Texto encriptado con éxito";
-    parrafo.textContent = "";
-    muñeco.src = "./img/encriptado.jpg";
-    
-    } else{
-        muñeco.src = "./img/muñeco.png";
-        tituloMensaje.textContent = "Ningún mensaje fue encontrado";
-        parrafo.textContent = "Ingresa el texto que deseas encriptar o  desencriptar";
-        swal("Ooops","Debes ingresar algún texto","Warning");
-        
-        //alert("Debes ingresar algún texto");
-        /*
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Debe ingresar algún texto ;)"
-            });
-            */
-        }
-    }
-    
-    
+    actualizarUI("Texto encriptado con éxito", "", "./img/encriptado.jpg");
+
+    // Mensaje de éxito
+    Swal.fire("Encriptado", "El texto ha sido encriptado con éxito", "success");
+  } else {
+    actualizarUI(
+      "Ningún mensaje fue encontrado",
+      "Ingresa el texto que deseas encriptar o desencriptar",
+      "./img/muñeco.png"
+    );
+    Swal.fire("Ooops", "Debes ingresar algún texto", "warning");
+  }
+}
+
+function desencriptar() {
+  const texto = document.getElementById("texto").value.toLowerCase(); // Convierte a minúsculas
+  if (/[^a-z\s]/.test(texto)) {
+    // Valida si hay caracteres especiales
+    Swal.fire(
+      "Error",
+      "Solo se permiten letras minúsculas y sin acentos",
+      "error"
+    );
+    return;
+  }
+
+  if (texto.length !== 0) {
+    const textoDescifrado = texto
+      .replace(/enter/g, "e")
+      .replace(/imes/g, "i")
+      .replace(/ai/g, "a")
+      .replace(/ober/g, "o")
+      .replace(/ufat/g, "u");
+
+    document.getElementById("texto").value = textoDescifrado;
+    actualizarUI("Texto desencriptado con éxito", "", "./img/encriptado.jpg");
+
+    // Mensaje de éxito
+    Swal.fire(
+      "Desencriptado",
+      "El texto ha sido desencriptado con éxito",
+      "success"
+    );
+  } else {
+    actualizarUI(
+      "Ningún mensaje fue encontrado",
+      "Ingresa el texto que deseas encriptar o desencriptar",
+      "./img/muñeco.png"
+    );
+    Swal.fire("Ooops", "Debes ingresar algún texto", "warning");
+  }
+}
+
+function copiarTexto() {
+  const texto = document.getElementById("texto");
+  texto.select();
+  document.execCommand("copy");
+
+  // Mensaje de éxito
+  Swal.fire("Copiado", "El texto ha sido copiado al portapapeles", "success");
+}
